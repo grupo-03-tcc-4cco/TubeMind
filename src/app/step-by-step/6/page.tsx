@@ -1,9 +1,9 @@
-'use client'
-import * as React from 'react'
-import Card from '@mui/material/Card'
-import CardContent from '@mui/material/CardContent'
-import CardMedia from '@mui/material/CardMedia'
-import Typography from '@mui/material/Typography'
+"use client"
+import * as React from "react"
+import Card from "@mui/material/Card"
+import CardContent from "@mui/material/CardContent"
+import CardMedia from "@mui/material/CardMedia"
+import Typography from "@mui/material/Typography"
 import {
   Button,
   CardActionArea,
@@ -11,30 +11,30 @@ import {
   Box,
   Container,
   Tooltip
-} from '@mui/material'
-import { ButtonBack } from 'components/ButtonBack'
+} from "@mui/material"
+import { ButtonBack } from "components/ButtonBack"
 
 export default function MultiActionAreaCard() {
   return (
     <Container
       sx={{
-        display: 'flex',
-        flexDirecion: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: '100vh'
+        display: "flex",
+        flexDirecion: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "100vh"
       }}
     >
       <Tooltip title="Voltar para home">
-        <Box sx={{ position: 'absolute', left: 530, top: 50 }}>
+        <Box sx={{ position: "absolute", left: 500, top: 50 }}>
           <ButtonBack href="/" />
         </Box>
       </Tooltip>
-      <Card sx={{ maxWidth: 450 }}>
+      <Card sx={{ maxWidth: 700 }}>
         <CardActionArea>
           <CardMedia
             component="img"
-            height="230"
+            height="300"
             image="/image/todos-os-dados.png"
             alt="Após logar em sua conta Google, selecione Desmarcar tudo em Criar uma exportação"
           />
@@ -44,7 +44,7 @@ export default function MultiActionAreaCard() {
             </Typography>
             <Typography variant="body2" color="text.secondary">
               No card do Youtube, clique em &quot;Todos os dados do Youtube
-              inclúidos&quot;.
+              incluídos&quot;.
               <br />
               <br /> Na aba que se abrirá, selecione <b>apenas</b> a opção
               &quot;histórico&quot;.
@@ -54,7 +54,7 @@ export default function MultiActionAreaCard() {
             </Typography>
           </CardContent>
         </CardActionArea>
-        <CardActions sx={{ display: 'flex', justifyContent: 'space-between' }}>
+        <CardActions sx={{ display: "flex", justifyContent: "space-between" }}>
           <Button
             size="small"
             color="primary"

@@ -1,9 +1,9 @@
-'use client'
-import * as React from 'react'
-import Card from '@mui/material/Card'
-import CardContent from '@mui/material/CardContent'
-import CardMedia from '@mui/material/CardMedia'
-import Typography from '@mui/material/Typography'
+"use client"
+import * as React from "react"
+import Card from "@mui/material/Card"
+import CardContent from "@mui/material/CardContent"
+import CardMedia from "@mui/material/CardMedia"
+import Typography from "@mui/material/Typography"
 import {
   Button,
   CardActionArea,
@@ -11,30 +11,30 @@ import {
   Box,
   Tooltip,
   Container
-} from '@mui/material'
-import { ButtonBack } from 'components/ButtonBack'
+} from "@mui/material"
+import { ButtonBack } from "components/ButtonBack"
 
 export default function MultiActionAreaCard() {
   return (
     <Container
       sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: '100vh'
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "100vh"
       }}
     >
       <Tooltip title="Voltar para home">
-        <Box sx={{ position: 'absolute', left: 550, top: 100 }}>
+        <Box sx={{ position: "absolute", left: 500, top: 80 }}>
           <ButtonBack href="/" />
         </Box>
       </Tooltip>
-      <Card sx={{ maxWidth: 400 }}>
+      <Card sx={{ maxWidth: 700 }}>
         <CardActionArea>
           <CardMedia
             component="img"
-            height="200"
+            height="300"
             image="/image/adicionar-ao-google.png"
             alt="Após logar em sua conta Google, selecione Desmarcar tudo em Criar uma exportação"
           />
@@ -48,7 +48,7 @@ export default function MultiActionAreaCard() {
             </Typography>
           </CardContent>
         </CardActionArea>
-        <CardActions sx={{ display: 'flex', justifyContent: 'space-between' }}>
+        <CardActions sx={{ display: "flex", justifyContent: "space-between" }}>
           <Button
             size="small"
             color="primary"

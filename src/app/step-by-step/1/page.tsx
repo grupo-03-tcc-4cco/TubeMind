@@ -1,41 +1,41 @@
-'use client'
-import * as React from 'react'
-import Card from '@mui/material/Card'
-import CardContent from '@mui/material/CardContent'
-import CardMedia from '@mui/material/CardMedia'
-import Typography from '@mui/material/Typography'
+"use client"
+import * as React from "react"
+import Card from "@mui/material/Card"
+import CardContent from "@mui/material/CardContent"
+import CardMedia from "@mui/material/CardMedia"
+import Typography from "@mui/material/Typography"
 import {
   Button,
   CardActionArea,
   CardActions,
   Box,
   Container
-} from '@mui/material'
-import Link from 'next/link'
-import { ButtonBack } from 'components/ButtonBack'
-import Tooltip from '@mui/material/Tooltip'
+} from "@mui/material"
+import Link from "next/link"
+import { ButtonBack } from "components/ButtonBack"
+import Tooltip from "@mui/material/Tooltip"
 
 export default function MultiActionAreaCard() {
   return (
     <Container
       sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: '100vh'
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "100vh"
       }}
     >
       <Tooltip title="Voltar para home">
-        <Box sx={{ position: 'absolute', left: 530, top: 100 }}>
+        <Box sx={{ position: "absolute", left: 500, top: 60 }}>
           <ButtonBack href="/" />
         </Box>
       </Tooltip>
-      <Card sx={{ maxWidth: 450 }}>
+      <Card sx={{ maxWidth: 700 }}>
         <CardActionArea>
           <CardMedia
             component="img"
-            height="200"
+            height="300"
             image="/image/acessar-google-takeout.png"
             alt="Acessar Google Takeout"
           />
@@ -45,13 +45,16 @@ export default function MultiActionAreaCard() {
             </Typography>
             <Typography variant="body2" color="text.secondary">
               <>
-                Acesse o site do{' '}
+                Acesse o site do{" "}
                 <Link href="https://takeout.google.com/">Google Takeout</Link>.
+                <br />
+                <br />
+                Logue em sua conta Google
               </>
             </Typography>
           </CardContent>
         </CardActionArea>
-        <CardActions sx={{ display: 'flex', justifyContent: 'space-between' }}>
+        <CardActions sx={{ display: "flex", justifyContent: "space-between" }}>
           <Button size="small" color="primary" variant="text" href="#" disabled>
             Voltar
           </Button>
