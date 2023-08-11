@@ -52,7 +52,7 @@ export default function MultiActionAreaCard() {
           >
             Voltar
           </Button>
-          <Button size="small" color="primary" href="#">
+          <Button size="small" color="primary" href="/form">
             finalizar
           </Button>
         </CardActions>
