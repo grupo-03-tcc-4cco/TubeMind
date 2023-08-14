@@ -46,7 +46,10 @@ export default function MultiActionAreaCard() {
             <Typography variant="body2" color="text.secondary">
               <>
                 Acesse o site do{" "}
-                <Link href="https://takeout.google.com/">Google Takeout</Link>.
+                <Link href="https://takeout.google.com/" target="_blank">
+                  Google Takeout
+                </Link>
+                .
                 <br />
                 <br />
                 Logue em sua conta Google
