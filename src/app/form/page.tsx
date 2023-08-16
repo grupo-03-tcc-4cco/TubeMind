@@ -1,5 +1,5 @@
 "use client"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import content from "../../../public/content"
 import {
   Autocomplete,
@@ -15,6 +15,7 @@ import {
 import { Typography } from "../../components/Typography"
 import CheckBoxIcon from "@mui/icons-material/CheckBox"
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank"
+import { useForm } from "hooks"
 
 export interface FormValues {
   email: string
@@ -35,6 +36,12 @@ export interface FormEntity {
 }
 
 const Form = () => {
+  const { create } = useForm()
+
+  useEffect(() => {
+    create()
+  }, [create])
+
   const [values, setValues] = useState<FormValues>({
     email: "",
     age: 0,
