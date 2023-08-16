@@ -38,10 +38,6 @@ export interface FormEntity {
 const Form = () => {
   const { create } = useForm()
 
-  useEffect(() => {
-    create()
-  }, [create])
-
   const [values, setValues] = useState<FormValues>({
     email: "",
     age: 0,
@@ -79,6 +75,18 @@ const Form = () => {
     event.preventDefault()
     uploadFile(file)
     const formEntity = formValuesToFormEntity(values)
+    create(
+      {
+        idade: values.age,
+        escolaridade: values.education,
+        email: values.email,
+        interesseEnum: values.interests,
+        profissao: values.profession,
+        sexo: values.gender,
+        file: null
+      },
+      file
+    )
     console.log(formEntity)
   }
 

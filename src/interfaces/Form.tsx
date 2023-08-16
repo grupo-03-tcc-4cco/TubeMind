@@ -5,5 +5,5 @@ export interface Form {
   sexo: string
   interesseEnum: string[]
   profissao: string
-  file: File
+  file: File | null
 }
