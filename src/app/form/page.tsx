@@ -1,4 +1,5 @@
 "use client"
+import * as React from "react"
 import { useEffect, useState } from "react"
 import content from "../../../public/content"
 import {
@@ -10,7 +11,10 @@ import {
   InputLabel,
   MenuItem,
   Select,
-  Button
+  Button,
+  Snackbar,
+  Backdrop,
+  CircularProgress
 } from "@mui/material"
 import { Typography } from "../../components/Typography"
 import CheckBoxIcon from "@mui/icons-material/CheckBox"
@@ -47,6 +51,25 @@ const Form = () => {
     profession: ""
   })
 
+  // const [finally, setFinally] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [message, setMessage] = useState("")
+  const [open, setOpen] = useState(false)
+
+  const handleClick = () => {
+    setOpen(true)
+  }
+
+  const handleClose = (
+    event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return
+    }
+    setOpen(false)
+  }
+
   const icon = <CheckBoxOutlineBlankIcon fontSize="small" />
   const checkedIcon = <CheckBoxIcon fontSize="small" />
 
@@ -74,19 +97,31 @@ const Form = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     uploadFile(file)
+
     const formEntity = formValuesToFormEntity(values)
-    create(
-      {
-        idade: values.age,
-        escolaridade: values.education,
-        email: values.email,
-        interesseEnum: values.interests,
-        profissao: values.profession,
-        sexo: values.gender,
-        file: null
-      },
-      file
-    )
+
+    try {
+      setLoading(true) // Ativa o Backdrop de carregamento
+      await create(
+        {
+          idade: values.age,
+          escolaridade: values.education,
+          email: values.email,
+          interesseEnum: values.interests,
+          profissao: values.profession,
+          sexo: values.gender,
+          file: null
+        },
+        file
+      )
+      setMessage("Formulário enviado com sucesso!")
+      setOpen(true) // Abre o Snackbar
+    } catch (error) {
+      console.error("Erro no envio do formulário:", error)
+      setMessage("Erro no envio do formulário")
+    } finally {
+      setLoading(false) // Desativa o Backdrop de carregamento, independentemente do sucesso ou falha
+    }
     console.log(formEntity)
   }
 
@@ -295,11 +330,28 @@ const Form = () => {
               <p>Tamanho: {file.size} bytes</p>
             </div>
           )}
-          <Button variant="contained" type="submit">
+          <Button variant="contained" type="submit" onClick={handleClick}>
             Enviar
           </Button>
         </Grid>
       </Grid>
+      <Snackbar
+        message={message}
+        autoHideDuration={6000}
+        open={open}
+        onClose={handleClose}
+        anchorOrigin={{
+          horizontal: "right",
+          vertical: "top"
+        }}
+      />
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={loading} // Alterado para 'loading' em vez de 'open'
+        onClick={handleClose}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </form>
   )
 }
