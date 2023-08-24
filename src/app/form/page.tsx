@@ -51,14 +51,9 @@ const Form = () => {
     profession: ""
   })
 
-  // const [finally, setFinally] = useState(false)
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState("")
   const [open, setOpen] = useState(false)
-
-  const handleClick = () => {
-    setOpen(true)
-  }
 
   const handleClose = (
     event?: React.SyntheticEvent | Event,
@@ -98,11 +93,9 @@ const Form = () => {
     event.preventDefault()
     uploadFile(file)
 
-    const formEntity = formValuesToFormEntity(values)
-
     try {
       setLoading(true) // Ativa o Backdrop de carregamento
-      await create(
+      const response: number = await create(
         {
           idade: values.age,
           escolaridade: values.education,
@@ -114,22 +107,22 @@ const Form = () => {
         },
         file
       )
-      setMessage("Formulário enviado com sucesso!")
-      setOpen(true) // Abre o Snackbar
+      if (response == 200) {
+        setOpen(true)
+        setMessage("Formulário enviado com sucesso!")
+      }
     } catch (error) {
-      console.error("Erro no envio do formulário:", error)
+      setOpen(true)
       setMessage("Erro no envio do formulário")
     } finally {
-      setLoading(false) // Desativa o Backdrop de carregamento, independentemente do sucesso ou falha
+      setLoading(false)
     }
-    console.log(formEntity)
   }
 
   const handleDrop = (e: React.DragEvent<HTMLInputElement>) => {
     e.preventDefault()
     const file = e.dataTransfer.files[0]
     setFile(file)
-    console.log("File dropped:", file)
   }
 
   const handleDragOver = (e: React.DragEvent<HTMLInputElement>) => {
@@ -144,7 +137,6 @@ const Form = () => {
     const file = e.target.files?.[0]
     if (file) {
       setFile(file)
-      console.log("File selected:", file)
     }
   }
 
@@ -158,27 +150,6 @@ const Form = () => {
         // uploadToS3(fileContent, file?.name);
       }
       reader.readAsText(file, "utf-8")
-    }
-  }
-
-  const formValuesToFormEntity = (formValues: FormValues): FormEntity => {
-    const genderValue = formValues.gender
-    const educationValue = formValues.education
-    const professionValue = formValues.profession
-
-    const genderId = content.form.genderList.indexOf(genderValue) + 1
-    const educationId =
-      content.form.educationalLevel.indexOf(educationValue) + 1
-    const professionId =
-      content.form.professionsList.indexOf(professionValue) + 1
-
-    return {
-      email: formValues.email,
-      age: formValues.age,
-      gender: genderValue,
-      education: educationValue,
-      interests: formValues.interests,
-      profession: professionValue
     }
   }
 
@@ -330,7 +301,7 @@ const Form = () => {
               <p>Tamanho: {file.size} bytes</p>
             </div>
           )}
-          <Button variant="contained" type="submit" onClick={handleClick}>
+          <Button variant="contained" type="submit">
             Enviar
           </Button>
         </Grid>
