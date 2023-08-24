@@ -52,6 +52,7 @@ const Form = () => {
     profession: ""
   })
 
+  const [formEmpty, setFormEmpty] = useState(false)
   const [severity, setSeverity] = useState("success")
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState("")
@@ -93,6 +94,20 @@ const Form = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+
+    if (
+      !values.email ||
+      values.age === 0 ||
+      !values.gender ||
+      !values.education ||
+      !values.profession ||
+      values.interests.length === 0 ||
+      !file
+    ) {
+      setFormEmpty(true)
+      return
+    }
+
     uploadFile(file)
 
     try {
@@ -163,7 +178,8 @@ const Form = () => {
         <Grid
           item
           mt={5}
-          xs={6}
+          xs={10}
+          md={6}
           sx={{
             justifyContent: "center"
           }}
@@ -191,10 +207,14 @@ const Form = () => {
             onChange={handleChange}
             value={values.age}
             label="Idade"
-            sx={{ width: "49.5%", mb: 3, mr: 0.5 }}
+            sx={{
+              width: { xs: "100%", md: "49%" },
+              mb: 2,
+              mr: { xs: 0, md: 1.9 }
+            }}
           />
 
-          <FormControl sx={{ width: "49.5%", mb: 3 }}>
+          <FormControl sx={{ width: { xs: "100%", md: "49%" }, mb: 3 }}>
             <InputLabel id="input-gender">Sexo</InputLabel>
             <Select
               labelId="input-gender"
@@ -211,7 +231,9 @@ const Form = () => {
             </Select>
           </FormControl>
 
-          <FormControl sx={{ width: "49.5%", mb: 3, mr: 0.5 }}>
+          <FormControl
+            sx={{ width: { xs: "100%", md: "49%" }, mb: 3, mr: 1.9 }}
+          >
             <InputLabel id="input-education">Nível de escolaridade</InputLabel>
             <Select
               labelId="input-education"
@@ -228,7 +250,7 @@ const Form = () => {
             </Select>
           </FormControl>
 
-          <FormControl sx={{ width: "49.5%" }}>
+          <FormControl sx={{ width: { xs: "100%", md: "49%" }, mb: 3 }}>
             <InputLabel id="input-profession">Profissão</InputLabel>
             <Select
               labelId="input-profession"
@@ -285,7 +307,7 @@ const Form = () => {
             type="file"
             id="file"
             name="file"
-            accept="image/*" // aqui é possível definir o tipo de arquivo aceito pelo input
+            accept="image/*"
             onDrop={handleDrop}
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
@@ -305,7 +327,7 @@ const Form = () => {
               <p>Tamanho: {file.size} bytes</p>
             </div>
           )}
-          <Button variant="contained" type="submit">
+          <Button variant="contained" type="submit" sx={{ my: 3 }}>
             Enviar
           </Button>
         </Grid>
@@ -325,6 +347,18 @@ const Form = () => {
         ) : (
           <Alert severity="error">{message}</Alert>
         )}
+      </Snackbar>
+      <Snackbar
+        open={formEmpty}
+        onClose={() => setFormEmpty(false)}
+        anchorOrigin={{
+          horizontal: "right",
+          vertical: "top"
+        }}
+      >
+        <Alert severity="info">
+          Por favor, preencha <strong>todos</strong> os campos do formulário.
+        </Alert>
       </Snackbar>
 
       <Backdrop
