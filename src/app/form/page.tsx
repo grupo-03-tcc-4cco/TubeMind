@@ -206,6 +206,7 @@ const Form = () => {
             name="age"
             onChange={handleChange}
             value={values.age}
+            inputProps={{ inputMode: "numeric" }}
             label="Idade"
             sx={{
               width: { xs: "100%", md: "49%" },
