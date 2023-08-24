@@ -14,7 +14,8 @@ import {
   Button,
   Snackbar,
   Backdrop,
-  CircularProgress
+  CircularProgress,
+  Alert
 } from "@mui/material"
 import { Typography } from "../../components/Typography"
 import CheckBoxIcon from "@mui/icons-material/CheckBox"
@@ -51,6 +52,7 @@ const Form = () => {
     profession: ""
   })
 
+  const [severity, setSeverity] = useState("success")
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState("")
   const [open, setOpen] = useState(false)
@@ -108,12 +110,14 @@ const Form = () => {
         file
       )
       if (response == 200) {
-        setOpen(true)
         setMessage("Formulário enviado com sucesso!")
+        setSeverity("success")
+        setOpen(true)
       }
     } catch (error) {
-      setOpen(true)
+      setSeverity("error")
       setMessage("Erro no envio do formulário")
+      setOpen(true)
     } finally {
       setLoading(false)
     }
@@ -315,7 +319,14 @@ const Form = () => {
           horizontal: "right",
           vertical: "top"
         }}
-      />
+      >
+        {severity === "success" ? (
+          <Alert severity="success">{message}</Alert>
+        ) : (
+          <Alert severity="error">{message}</Alert>
+        )}
+      </Snackbar>
+
       <Backdrop
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={loading} // Alterado para 'loading' em vez de 'open'
